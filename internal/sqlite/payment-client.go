@@ -2,6 +2,7 @@ package sqlite
 
 import (
 	"context"
+	"database/sql"
 
 	"github.com/google/uuid"
 	"github.com/mrcampbell/stax-refund-service/app"
@@ -24,7 +25,9 @@ func (p *PaymentClient) GetPaymentByID(ctx context.Context, userID uuid.UUID, pa
 		ID:     paymentID.String(),
 		UserID: userID.String(),
 	})
-	// todo: check for 404
+	if err != nil && err == sql.ErrNoRows {
+		return app.Payment{}, app.ErrorNotFound
+	}
 	if err != nil {
 		return app.Payment{}, err
 	}
