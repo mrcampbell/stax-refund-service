@@ -10,8 +10,6 @@ import DocsPage from './pages/DocsPage';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-  const [viewDocs, setViewDocs] = useState(false)
-
   useEffect(() => {
     const token = GetLocalToken()
     setIsLoggedIn(!!token)
@@ -29,13 +27,9 @@ function App() {
           Mike's Refund Service™
         </h1>
         {isLoggedIn && <Logout onAuthChange={onAuthChange} />}
-        <button
-          onClick={() => setViewDocs(!viewDocs)}
-          className="btn btn-secondary">View Docs</button>
       </div>
-      {viewDocs ? <DocsPage /> :
-        isLoggedIn ? <RefundPage /> : <Login onAuthChange={onAuthChange} />
-      }
+
+      {isLoggedIn ? <RefundPage /> : <Login onAuthChange={onAuthChange} />}
     </>
   )
 }
