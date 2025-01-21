@@ -6,6 +6,8 @@ This is a Refund Service that lists Payments and Refund Statuses and accepts Ref
 
 This project is simply for demonstration, and some parts are left undone, but documented, for brevity. This service normally wouldn't have need for a database, and would normally map requests to services like a 1st or 3rd Party Authenticator, and a Banking Service, I just added a SQLite Database to simulate the persistance of a downstream service.
 
+![alt text](docs/app-structure-diagram.png)
+
 ### Installation and Running the Project
 
 To setup the `.env` file, run this, but only once!
