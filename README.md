@@ -4,15 +4,15 @@
 
 This is a Refund Service that lists Payments and Refund Statuses and accepts Refund Requests on behalf of a customer.
 
-This project is simply for demonstration, and some parts are left undone, but documented, for brevity. This service normally wouldn't have need for a database, and would normally map requests to services like a 1st or 3rd Party Authenticator, and a Banking Service, I just added a SQLite Database to simulate the persistance of a downstream service.
+This project is simply for demonstration, and some parts are left undone, but documented, for brevity. This service normally wouldn't have need for a database, and would normally map requests to services like a 1st or 3rd Party Authenticator, and a Banking Service, I just added a SQLite Database to simulate the persistence of a downstream service.
 
 The Database (on startup) is reset and populated with Payments and Refunds. To refresh the database, simply restart the server.
 
-### Architectual Diagram
+### Architectural Diagram
 
 ![alt text](docs/app-structure-diagram.png)
 
-Note that the "Clouds" in the diagram are non-existant, but hypothetical resources we would be calling, and the dotted lines indicate paths to those non-existant resources.
+Note that the "Clouds" in the diagram are non-existent, but hypothetical resources we would be calling, and the dotted lines indicate paths to those non-existent resources.
 
 I'm using SQLite to simulate that intended downstream behavior, and those connections are indicated with solid arrows.
 
@@ -81,13 +81,13 @@ As this is only a demo, the security is more conceptual than actual, but I still
 I have an authentication endpoint for requesting, and authentication middleware for verifying user identity, which in our case is a single user with a stubbed AuthToken.
 
 1. **Authorization**  
-In the API and the Client, you can only see, and by extention, request refunds for, payments that are attached to your UserID, but I've got verification in the API to ensure that.
+In the API and the Client, you can only see, and by extension, request refunds for, payments that are attached to your UserID, but I've got verification in the API to ensure that.
 
 1. **Validation**  
 You can only request a refund for a payment a single time. Subsequent requests are rejected, with a proper error code.
 
 1. **You can only refund a *Payment*, not an *Amount***  
-This seems small, but the Refund Endpoint doesn't accept an amount, rather an ID to an existing payment. That keeps this a "Refund Service" not a "Withdrawl Service".
+This seems small, but the Refund Endpoint doesn't accept an amount, rather an ID to an existing payment. That keeps this a "Refund Service" not a "Withdrawal Service".
 
 1. **Refunds are Asynchronous**  
 Rather than issuing a refund for every and any payment on the spot, a user the immediate response is a "pending status", as it's reviewed internally. 
