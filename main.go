@@ -3,10 +3,13 @@ package main
 import (
 	"context"
 
+	"github.com/mrcampbell/stax-refund-service/app"
 	"github.com/mrcampbell/stax-refund-service/config"
 	"github.com/mrcampbell/stax-refund-service/db"
+	routes "github.com/mrcampbell/stax-refund-service/internal/http/routers"
+	"github.com/mrcampbell/stax-refund-service/internal/mock"
 	"github.com/mrcampbell/stax-refund-service/internal/sqlc"
-	mock "github.com/mrcampbell/stax-refund-service/internal/sqlc/mocks"
+	"github.com/mrcampbell/stax-refund-service/internal/sqlite"
 )
 
 func main() {
@@ -22,4 +25,18 @@ func main() {
 
 	queries := sqlc.New(conn)
 	mock.PopulateSampleData(ctx, queries)
+
+	mockAuthService := mock.NewAuthServiceWithMockedMethods()
+	paymentClient := sqlite.NewPaymentClient(queries)
+	refundService := sqlite.NewRefundService(queries)
+
+	serverResources := app.ServerResources{
+		Queries:       queries,
+		AuthService:   mockAuthService,
+		PaymentClient: paymentClient,
+		RefundService: refundService,
+	}
+
+	server := routes.NewServer(queries, serverResources)
+	server.Run()
 }
