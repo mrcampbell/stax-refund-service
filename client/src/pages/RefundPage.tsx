@@ -5,11 +5,13 @@ import PaymentsTable from "../components/PaymentsTable";
 function RefundPage() {
     const [payments, setPayments] = useState([]);
     const [refunds, setRefunds] = useState([]);
+
     const fetchPayments = async () => {
         const payments = await GetPayments()
         setPayments(payments);
         console.log(payments);
     }
+    
     const fetchRefunds = async () => {
         const refunds = await GetRefunds();
         setRefunds(refunds);

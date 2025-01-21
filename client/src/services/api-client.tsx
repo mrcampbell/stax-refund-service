@@ -1,6 +1,7 @@
 import { SetLocalToken } from "./auth-service";
 
 export const Authenticate = async (username: string, password: string) => {
+    // todo: move url to config/env
     const response = await fetch('http://localhost:8080/api/users/login', {
         method: 'POST',
         headers: {
@@ -29,6 +30,7 @@ export const RequestRefund = async (paymentID: string) => {
 
 const authedGet = async (endpoint: string) => {
     const token = localStorage.getItem('token');
+    // todo: move url to config/env
     const response = await fetch(`http://localhost:8080${endpoint}`, {
         headers: {
             'Content-Type': 'application/json',
@@ -42,6 +44,7 @@ const authedGet = async (endpoint: string) => {
 
 const authedPost = async (endpoint: string, body: any) => {
     const token = localStorage.getItem('token');
+    // todo: move url to config/env
     const response = await fetch(`http://localhost:8080${endpoint}`, {
         method: 'POST',
         headers: {

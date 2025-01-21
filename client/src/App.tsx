@@ -4,8 +4,6 @@ import Login from './components/Login';
 import Logout from './components/Logout';
 import RefundPage from './pages/RefundPage';
 import { GetLocalToken } from './services/auth-service'
-import DocsPage from './pages/DocsPage';
-
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
