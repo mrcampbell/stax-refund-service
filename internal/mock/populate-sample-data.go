@@ -82,6 +82,21 @@ func CreateSamplePaymentWithStubbedUserID(ctx context.Context, queries *sqlc.Que
 	return nil
 }
 
+func CreateSamplePayment(ctx context.Context, queries *sqlc.Queries, id uuid.UUID, userID uuid.UUID, description string, amountInCents int, createdAt time.Time) error {
+	log.Println("Creating mock payment with id: ", id.String())
+	_, err := queries.CreatePayment(ctx, sqlc.CreatePaymentParams{
+		AmountInCents: int64(amountInCents),
+		ID:            id.String(),
+		UserID:        userID.String(),
+		Description:   description,
+		CreatedAt:     createdAt,
+	})
+	if err != nil {
+		return fmt.Errorf("error creating mock payment: %v", err)
+	}
+	return nil
+}
+
 func CreateSampleRefundWithStubbedUserID(ctx context.Context, queries *sqlc.Queries, id uuid.UUID, paymentID uuid.UUID, description string, requestedAt time.Time, status app.RefundStatus) error {
 	log.Println("Creating mock refund with id: ", id.String())
 	_, err := queries.CreateRefund(ctx, sqlc.CreateRefundParams{

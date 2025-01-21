@@ -4,6 +4,7 @@ import (
 	"context"
 	"reflect"
 	"testing"
+	"time"
 
 	"github.com/google/uuid"
 	"github.com/mrcampbell/stax-refund-service/app"
@@ -76,9 +77,20 @@ func TestRefundService_RefundPayment(t *testing.T) {
 			want:    app.RefundStatusUnknown,
 			wantErr: true,
 		},
-		// {
-		// 	name: "fail to request a refund for a payment not assigned to the user",
-		// }
+		{
+			name: "fail to request a refund for a payment that does not belong to the user",
+			fields: fields{
+				queries: sampleDBWithStubbedEntries(ctx, "../../db/files/test3.db"),
+			},
+			args: args{
+				ctx:         ctx,
+				userID:      mock.MockStubbedUserID(),
+				paymentID:   mock.PaymentFourID(), // payment 4 does not belong to the user
+				description: "",
+			},
+			want:    app.RefundStatusUnknown,
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -109,6 +121,11 @@ func sampleDBWithStubbedEntries(ctx context.Context, path string) *sqlc.Queries 
 	}
 
 	err = mock.PopulateSampleRefunds(ctx, queries)
+	if err != nil {
+		panic(err)
+	}
+
+	err = mock.CreateSamplePayment(ctx, queries, mock.PaymentFourID(), mock.NonExistingUserID(), "payment 4", 3000, time.Now())
 	if err != nil {
 		panic(err)
 	}

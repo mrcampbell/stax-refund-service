@@ -23,5 +23,8 @@ func NewServer(queries *sqlc.Queries, resources app.ServerResources) *Server {
 }
 
 func (s *Server) Run() {
-	s.routes.Run()
+	err := s.routes.Run()
+	if err != nil {
+		panic(err)
+	}
 }

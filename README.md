@@ -6,7 +6,15 @@ This is a Refund Service that lists Payments and Refund Statuses and accepts Ref
 
 This project is simply for demonstration, and some parts are left undone, but documented, for brevity. This service normally wouldn't have need for a database, and would normally map requests to services like a 1st or 3rd Party Authenticator, and a Banking Service, I just added a SQLite Database to simulate the persistance of a downstream service.
 
+The Database (on startup) is reset and populated with Payments and Refunds. To refresh the database, simply restart the server.
+
+### Architectual Diagram
+
 ![alt text](docs/app-structure-diagram.png)
+
+Note that the "Clouds" in the diagram are non-existant, but hypothetical resources we would be calling, and the dotted lines indicate paths to those non-existant resources.
+
+I'm using SQLite to simulate that intended downstream behavior, and those connections are indicated with solid arrows.
 
 ### Installation and Running the Project
 
@@ -62,6 +70,8 @@ sqlc generate
 ```
 
 to update the `internal/sqlc` package. Note that the code in `internal/sqlc` is generated, and should not be directly updated.
+
+We use GoLang-CI Lint, and you can [find the installation instructions here](https://golangci-lint.run/welcome/install/#local-installation)
 
 ### Security Features
 
