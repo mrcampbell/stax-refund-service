@@ -6,7 +6,7 @@ This is a Refund Service that lists Payments and Refund Statuses and accepts Ref
 
 This project is simply for demonstration, and some parts are left undone, but documented, for brevity. This service normally wouldn't have need for a database, and would normally map requests to services like a 1st or 3rd Party Authenticator, and a Banking Service, I just added a SQLite Database to simulate the persistence of a downstream service.
 
-The Database (on startup) is reset and populated with Payments and Refunds. To refresh the database, simply restart the server.
+The Database is reset and populated with Payments and Refunds on startup, and restart. To refresh the database, simply restart the server.
 
 ### Architectural Diagram
 
