@@ -6,7 +6,7 @@ import (
 	"github.com/mrcampbell/stax-refund-service/app"
 	"github.com/mrcampbell/stax-refund-service/config"
 	"github.com/mrcampbell/stax-refund-service/db"
-	routes "github.com/mrcampbell/stax-refund-service/internal/http/routers"
+	"github.com/mrcampbell/stax-refund-service/internal/http/routes"
 	"github.com/mrcampbell/stax-refund-service/internal/mock"
 	"github.com/mrcampbell/stax-refund-service/internal/sqlc"
 	"github.com/mrcampbell/stax-refund-service/internal/sqlite"
